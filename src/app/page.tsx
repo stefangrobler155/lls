@@ -1,10 +1,20 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+// app/page.tsx or wherever you're using this
+import { getHomePage } from '@/lib/api';
+import Hero from '@/components/Hero/Hero';
 
-export default function Home() {
+export default async function HomePage() {
+  const { acf } = await getHomePage();
+
   return (
-    <section>
-      home
-    </section>
+    <main>
+      <Hero
+        title={acf.hero_title}
+        subtitle={acf.hero_subtitle}
+        imageUrl={acf.hero_background_url} // ← ✅ using the clean URL
+        ctaText={acf.cta_text}
+        ctaUrl={acf.cta_url}
+      />
+    </main>
   );
 }
+

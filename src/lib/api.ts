@@ -1,7 +1,12 @@
-const API_BASE = process.env.NEXT_PUBLIC_WORDPRESS_API;
-
-export async function getPageBySlug(slug: string): Promise<WPPage | null> {
-  const res = await fetch(`${API_BASE}/wp/v2/pages?slug=${slug}`);
+// src/lib/api.ts
+export async function getHomePage() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API}/pages?slug=home&_embed`);
   const data = await res.json();
-  return data.length > 0 ? data[0] : null;
+  const page = data[0];
+
+  return {
+    title: page.title.rendered,
+    content: page.content.rendered,
+    acf: page.acf, // hero_title, hero_subtitle, hero_image, cta_text, cta_url
+  };
 }
