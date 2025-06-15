@@ -1,0 +1,19 @@
+.about-brief {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  background: #f9f9f9;
+}
+
+.about-brief__image img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+}
+
+.about-brief__content {
+  flex: 1;
+  min-width: 280px;
+}
