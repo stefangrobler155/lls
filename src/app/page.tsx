@@ -12,7 +12,7 @@ export default async function HomePage() {
       <Hero
         title={acf.hero_title}
         subtitle={acf.hero_subtitle}
-        imageUrl={acf.hero_background_url} // ← ✅ using the clean URL
+        imageUrl={acf.hero_background_url} 
         ctaText={acf.cta_text}
         ctaUrl={acf.cta_url}
       />
@@ -29,19 +29,24 @@ export default async function HomePage() {
             title: acf.service_1_title,
             description: acf.service_1_description,
             imageUrl: acf.service_1_image,
+            url: acf.service_1_url,
           },
           {
             title: acf.service_2_title,
             description: acf.service_2_description,
             imageUrl: acf.service_2_image,
+            url: acf.service_2_url,
           },
           {
             title: acf.service_3_title,
             description: acf.service_3_description,
             imageUrl: acf.service_3_image,
+            url: acf.service_3_url,
           },
         ]}
       />
+
+     
     </main>
   );
 }

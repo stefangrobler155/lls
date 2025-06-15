@@ -1,9 +1,11 @@
+import Link from 'next/link';
 import './ServicesOverview.css';
 
 type Service = {
   title: string;
   description: string;
   imageUrl?: string;
+  url?: string;
 };
 
 type ServicesOverviewProps = {
@@ -20,17 +22,27 @@ export default function ServicesOverview({ title, description, services }: Servi
         <p>{description}</p>
       </div>
       <div className="services__list">
-        {services.map((service, index) => (
-          <div className="service" key={index}>
-            {service.imageUrl && (
-              <div className="service__image">
-                <img src={service.imageUrl} alt={service.title} />
-              </div>
+        {services.map((service, index) => {
+  const CardContent = (
+    <div className="service" key={index}>
+      {service.imageUrl && (
+        <div className="service__image">
+          <img src={service.imageUrl} alt={service.title} />
+        </div>
             )}
             <h3>{service.title}</h3>
             <p>{service.description}</p>
-          </div>
-        ))}
+            </div>
+        );
+
+        return service.url ? (
+            <Link key={index} href={service.url} className="service__link">
+            {CardContent}
+            </Link>
+        ) : (
+            CardContent
+        );
+        })}
       </div>
     </section>
   );

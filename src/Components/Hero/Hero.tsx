@@ -10,7 +10,7 @@ type HeroProps = {
 };
 
 export default function Hero({ title, subtitle, imageUrl, ctaText, ctaUrl }: HeroProps) {
-    console.log(`Hero component rendered with title: ${title}, subtitle: ${subtitle}, imageUrl: ${imageUrl}, ctaText: ${ctaText}, ctaUrl: ${ctaUrl}`);
+    
     
   return (
     <section className="hero" style={{ backgroundImage: `url(${imageUrl})` }}>

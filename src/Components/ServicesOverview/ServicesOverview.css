@@ -32,3 +32,12 @@
   margin-bottom: 1rem;
   border-radius: 6px;
 }
+.service__link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.service__link:hover .service {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+
