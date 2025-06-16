@@ -1,4 +1,4 @@
-// src\app\services\[slug]\page.tsx
+
 import { notFound } from 'next/navigation';
 import PackagesSection from '@/components/PackagesSection/PackagesSection';
 
@@ -68,4 +68,4 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   );
 }
 
-export const dynamic = 'force-dynamic'; // ✅ Keep this
+export const dynamic = 'force-dynamic'; 

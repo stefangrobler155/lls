@@ -1,24 +1,55 @@
-// import { fetchGalleryItems } from "@/lib/wordpress";
+import Gallery from '@/components/Gallery/Gallery';
 
+type GalleryImage = {
+  url: string;
+  categories: string[];
+  title?: string;
+  caption?: string;
+};
+
+const allowedCategories = ['wedding', 'engagement', 'family'];
+
+async function fetchCategoryImages(): Promise<GalleryImage[]> {
+  const res = await fetch('http://lls.local/wp-json/wp/v2/media?per_page=50');
+  if (!res.ok) return [];
+
+  const media = await res.json();
+
+  return media
+    .map((img: any): GalleryImage | null => {
+      const categories =
+        img.class_list
+          ?.filter((cls: string) => cls.startsWith('attachment_category-'))
+          .map((cls: string) => cls.replace('attachment_category-', '')) || [];
+
+      const hasAllowedCategory = categories.some((cat: string) =>
+        allowedCategories.includes(cat)
+      );
+
+      if (!hasAllowedCategory) return null;
+
+      return {
+        url: img.source_url,
+        categories,
+        title: img.title?.rendered || '',
+        caption: img.caption?.rendered || '',
+      };
+    })
+    .filter((img: GalleryImage | null): img is GalleryImage => img !== null); // ✅ Remove nulls, assert type
+}
 
 export default async function GalleryPage() {
-//   const items = await fetchGalleryItems();
+  const galleryImages = await fetchCategoryImages();
+
+  // ✅ Remove duplicates by URL
+  const uniqueGalleryImages = Array.from(
+    new Map(galleryImages.map((img) => [img.url, img])).values()
+  );
 
   return (
     <main>
-      <h1>Gallery</h1>
-      {/* <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
-        {items.map((item: any) => (
-          <div key={item.id} style={{ width: '300px' }}>
-            <img
-              src={item._embedded['wp:featuredmedia']?.[0]?.source_url}
-              alt={item.title.rendered}
-              style={{ width: '100%', height: 'auto' }}
-            />
-            <h3 dangerouslySetInnerHTML={{ __html: item.title.rendered }} />
-          </div>
-        ))}
-      </div> */}
+      <h1 style={{ textAlign: 'center', paddingTop: '2rem' }}>Gallery</h1>
+      <Gallery images={uniqueGalleryImages} />
     </main>
   );
 }
