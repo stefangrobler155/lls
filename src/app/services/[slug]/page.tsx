@@ -1,4 +1,3 @@
-
 import { notFound } from 'next/navigation';
 import PackagesSection from '@/components/PackagesSection/PackagesSection';
 
@@ -22,7 +21,7 @@ async function getServiceData(slug: string) {
 
   const page = data[0];
   const acf = page.acf;
-// console.log('ACF FIELDS:', JSON.stringify(acf, null, 2));
+
   const packages: Package[] = [
     {
       title: acf?.silver_package?.title,

@@ -1,10 +1,13 @@
 import './FeaturedGallerySlider.css';
 import React from 'react';
-
-type FeaturedGallerySliderProps = {
-  images: string[];
-};
-
+import { FeaturedGallerySliderProps } from '@/lib/types';
+/**
+ * FeaturedGallerySlider component for displaying a slider of featured images.
+ * It includes a title and a list of images that can be scrolled through.
+ *
+ * @param {FeaturedGallerySliderProps} props - The properties for the FeaturedGallerySlider component.
+ * @returns {JSX.Element} The rendered FeaturedGallerySlider component.
+ */
 const FeaturedGallerySlider = ({ images }: FeaturedGallerySliderProps) => {
   if (!images || images.length === 0) return null;
 

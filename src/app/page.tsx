@@ -1,3 +1,4 @@
+import { getHomePageData } from '@/lib/queries';
 import Hero from '@/components/Hero/Hero';
 import AboutBrief from '@/components/AboutBrief/AboutBrief';
 import ServicesOverview from '@/components/ServicesOverview/ServicesOverview';
@@ -5,19 +6,34 @@ import FeaturedGallerySlider from '@/components/FeaturedGallerySlider/FeaturedGa
 import CallToAction from '@/components/CallToAction/CallToAction';
 
 export default async function HomePage() {
-  const res = await fetch('http://lls.local/wp-json/wp/v2/pages?slug=home');
-  const data = await res.json();
-  const home = data[0];
-  const acf = home.acf;
+  const home = await getHomePageData();
+  const acf = home?.acf;
 
+  if (!acf) return <p>Something went wrong. Please try again later.</p>;
+  if (!acf.hero_title || !acf.hero_subtitle || !acf.hero_background_url) {
+    return <p>Missing hero data. Please check your configuration.</p>;
+  }
+  if (!acf.about_title || !acf.about_text || !acf.about_image_url) {
+    return <p>Missing about section data. Please check your configuration.</p>;
+  }
+  if (!acf.services_title || !acf.services_description) {
+    return <p>Missing services overview data. Please check your configuration.</p>;
+  }
+  if (!acf.featured_gallery || !acf.featured_gallery.image_1) {
+    return <p>Missing featured gallery images. Please check your configuration.</p>;
+  }
+  if (!acf.cta_text || !acf.cta_url) {
+    return <p>Missing call to action data. Please check your configuration.</p>;
+  }
 
+  // Filter out undefined or null images from the featured gallery  
   const featuredGallery = [
-    acf?.featured_gallery?.image_1,
-    acf?.featured_gallery?.image_2,
-    acf?.featured_gallery?.image_3,
-    acf?.featured_gallery?.image_4,
-    acf?.featured_gallery?.image_5,
-  ].filter(Boolean);
+  acf.featured_gallery.image_1,
+  acf.featured_gallery.image_2,
+  acf.featured_gallery.image_3,
+  acf.featured_gallery.image_4,
+  acf.featured_gallery.image_5,
+].filter((img): img is string => typeof img === 'string');
 
   return (
     <main>
@@ -58,7 +74,14 @@ export default async function HomePage() {
         ]}
       />
       <FeaturedGallerySlider images={featuredGallery} />
-      <CallToAction />
+      
+      <CallToAction
+        heading={acf.call_to_action.heading}
+        text={acf.call_to_action.text}
+        buttonText={acf.call_to_action.button_text}
+        buttonUrl={acf.call_to_action.button_url}
+      />
+
     </main>
   );
 }

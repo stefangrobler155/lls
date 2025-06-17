@@ -1,11 +1,12 @@
 import './AboutBrief.css';
-
-type AboutBriefProps = {
-  title: string;
-  text: string;
-  imageUrl?: string;
-};
-
+import { AboutBriefProps } from '@/lib/types';
+/**
+ * AboutBrief component for displaying a brief about section on the homepage.
+ * It includes a title, text, and an optional image.
+ *
+ * @param {AboutBriefProps} props - The properties for the AboutBrief component.
+ * @returns {JSX.Element} The rendered AboutBrief component.
+ */
 export default function AboutBrief({ title, text, imageUrl }: AboutBriefProps) {
   return (
     <section className="about-brief">

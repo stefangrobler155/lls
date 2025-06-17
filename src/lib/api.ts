@@ -7,6 +7,6 @@ export async function getHomePage() {
   return {
     title: page.title.rendered,
     content: page.content.rendered,
-    acf: page.acf, // hero_title, hero_subtitle, hero_image, cta_text, cta_url
+    acf: page.acf, 
   };
 }

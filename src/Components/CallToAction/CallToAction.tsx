@@ -1,12 +1,21 @@
 import './CallToAction.css';
+import { CallToActionProps } from '@/lib/types';
 
-export default function CallToAction() {
+
+export default function CallToAction({
+  heading,
+  text,
+  buttonText,
+  buttonUrl,
+}: CallToActionProps) {
   return (
     <section className="cta">
       <div className="cta-content">
-        <h2>Let’s Capture Something Beautiful</h2>
-        <p>Ready to tell your story through timeless photography? Reach out and let’s make it happen.</p>
-        <a href="/contact" className="cta-button">Book a Session</a>
+        <h2>{heading}</h2>
+        <p>{text}</p>
+        <a href={buttonUrl} className="cta-button">
+          {buttonText}
+        </a>
       </div>
     </section>
   );

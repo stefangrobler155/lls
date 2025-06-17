@@ -1,13 +1,12 @@
+import { AboutSectionProps } from '@/lib/types';
 import './AboutSection.css';
-
-type AboutSectionProps = {
-  title: string;
-  intro: string;
-  body: string;
-  imageUrl: string;
-  signature?: string;
-};
-
+/**
+ * AboutSection component for displaying the about section of the homepage.
+ * It includes a title, introduction, body text, an image, and an optional signature.
+ *
+ * @param {AboutSectionProps} props - The properties for the AboutSection component.
+ * @returns {JSX.Element} The rendered AboutSection component.
+ */
 export default function AboutSection({
   title,
   intro,
