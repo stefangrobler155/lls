@@ -47,9 +47,20 @@ export default async function GalleryPage() {
   );
 
   return (
-    <main>
-      <h1 style={{ textAlign: 'center', paddingTop: '2rem' }}>Gallery</h1>
-      <Gallery images={uniqueGalleryImages} />
-    </main>
+    <section className="max-w-7xl min-h-screen bg-white mx-auto">
+        <div className="pt-16">
+          <div className="max-w-7xl mx-auto px-4">
+            <h1 className="text-3xl font-bold text-center text-gray-900">Gallery</h1>
+            <p className="text-center text-gray-700">
+              Welcome to our gallery! Here you can find a curated selection of our best work.
+            </p>
+          </div>
+        </div>
+      <div className="mx-auto px-4">
+
+        <Gallery images={uniqueGalleryImages} />
+      </div>
+      
+    </section>
   );
 }

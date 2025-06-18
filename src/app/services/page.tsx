@@ -1,8 +1,5 @@
 // app/services/page.tsx
-
 import Link from 'next/link';
-import './services.css';
-import { log } from 'console';
 
 type WPPage = {
   id: number;
@@ -22,28 +19,43 @@ export default async function ServicesPage() {
   );
 
   const servicePages: WPPage[] = (await Promise.all(serviceRequests)).map(result => result[0]);
-  
+
   return (
-    <main className="services">
-      <h1 className="services__heading">Our Photography Services</h1>
-      <div className="services__grid">
-        {servicePages.map(service => (
-          <Link href={`/services/${service.slug}`} key={service.id} className="service-card">
-            {service.acf.service_image_url && (
-              <img
-                src={service.acf.service_image_url}
-                alt={service.acf.service_title}
-                className="service-card__image"
-              />
-            )}
-            <div className="service-card__content">
-              <h2>{service.acf.service_title}</h2>
-              <p>{service.acf.service_description}</p>
-              <span className="service-card__link">Learn More →</span>
-            </div>
-          </Link>
-        ))}
+    <section className="h-screen py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4">
+        <h1 className="text-3xl font-bold text-center text-gray-900 mb-12">
+          Our Photography Services
+        </h1>
+
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {servicePages.map((service) => (
+            <Link
+              href={`/services/${service.slug}`}
+              key={service.id}
+              className="block rounded-lg shadow-md hover:shadow-lg transition bg-gray-50 overflow-hidden"
+            >
+              {service.acf.service_image_url && (
+                <img
+                  src={service.acf.service_image_url}
+                  alt={service.acf.service_title}
+                  className="w-full h-100 object-cover"
+                />
+              )}
+              <div className="p-6">
+                <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                  {service.acf.service_title}
+                </h2>
+                <p className="text-gray-600 text-sm mb-4">
+                  {service.acf.service_description}
+                </p>
+                <span className="text-sm text-black font-medium hover:underline">
+                  Learn More →
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-    </main>
+    </section>
   );
 }

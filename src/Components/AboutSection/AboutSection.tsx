@@ -1,12 +1,5 @@
 import { AboutSectionProps } from '@/lib/types';
-import './AboutSection.css';
-/**
- * AboutSection component for displaying the about section of the homepage.
- * It includes a title, introduction, body text, an image, and an optional signature.
- *
- * @param {AboutSectionProps} props - The properties for the AboutSection component.
- * @returns {JSX.Element} The rendered AboutSection component.
- */
+
 export default function AboutSection({
   title,
   intro,
@@ -15,16 +8,22 @@ export default function AboutSection({
   signature,
 }: AboutSectionProps) {
   return (
-    <section className="about-section">
-      <div className="about-container">
-        <div className="about-image">
-          <img src={imageUrl} alt="About us" />
+    <section className="py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+        <div>
+          <img
+            src={imageUrl}
+            alt="About us"
+            className="w-full rounded-lg shadow-md object-cover"
+          />
         </div>
-        <div className="about-content">
-          <h2>{title}</h2>
-          <p className="about-intro">{intro}</p>
-          <p className="about-body">{body}</p>
-          {signature && <p className="about-signature">{signature}</p>}
+        <div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
+          <p className="text-lg text-gray-700 mb-4">{intro}</p>
+          <p className="text-base text-gray-600 mb-4">{body}</p>
+          {signature && (
+            <p className="italic text-sm text-gray-500 mt-4">{signature}</p>
+          )}
         </div>
       </div>
     </section>

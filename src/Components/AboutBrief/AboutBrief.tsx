@@ -1,23 +1,28 @@
-import './AboutBrief.css';
-import { AboutBriefProps } from '@/lib/types';
-/**
- * AboutBrief component for displaying a brief about section on the homepage.
- * It includes a title, text, and an optional image.
- *
- * @param {AboutBriefProps} props - The properties for the AboutBrief component.
- * @returns {JSX.Element} The rendered AboutBrief component.
- */
-export default function AboutBrief({ title, text, imageUrl }: AboutBriefProps) {
+type AboutProps = {
+  title: string;
+  subtitle: string;
+  images: string[];
+};
+
+
+export default function AboutSection({ title, subtitle, images }: AboutProps) {
   return (
-    <section className="about-brief">
-      {imageUrl && (
-        <div className="about-brief__image">
-          <img src={imageUrl} alt="About section image" />
-        </div>
-      )}
-      <div className="about-brief__content">
-        <h2>{title}</h2>
-        <p>{text}</p>
+    <section className="bg-white py-16">
+      <div className="max-w-4xl mx-auto px-4 text-center mb-12">
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>
+        <p className="text-gray-700 text-lg max-w-2xl mx-auto">{subtitle}</p>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 grid gap-6 md:grid-cols-3">
+        {images.map((url, index) => (
+          <div key={index} className="rounded-lg overflow-hidden shadow-md">
+            <img
+              src={url}
+              alt={`About ${index + 1}`}
+              className="w-full h-64 object-cover"
+            />
+          </div>
+        ))}
       </div>
     </section>
   );

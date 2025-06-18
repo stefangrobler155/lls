@@ -1,6 +1,8 @@
 // lib/types.ts
 
-// Hero Types
+// ---------------------------
+// Hero Section
+// ---------------------------
 export type HeroData = {
   hero_title: string;
   hero_subtitle: string;
@@ -8,6 +10,7 @@ export type HeroData = {
   cta_text: string;
   cta_url: string;
 };
+
 export type HeroProps = {
   title: string;
   subtitle: string;
@@ -15,17 +18,22 @@ export type HeroProps = {
   ctaText?: string;
   ctaUrl?: string;
 };
-// About Section Types
-export type AboutBriefData = {
-  about_title: string;
-  about_text: string;
-  about_image_url: string;
-};
-export type AboutBriefProps = {
+
+// ---------------------------
+// About Section (Nested Group)
+// ---------------------------
+export type AboutComponent = {
   title: string;
-  text: string;
-  imageUrl?: string;
+  subtitle: string;
+  image_1: string;
+  image_2: string;
+  image_3: string;
 };
+
+export type AboutBriefData = {
+  about_component: AboutComponent;
+};
+
 export type AboutSectionProps = {
   title: string;
   intro: string;
@@ -33,7 +41,10 @@ export type AboutSectionProps = {
   imageUrl: string;
   signature?: string;
 };
-// Services Overview Types
+
+// ---------------------------
+// Services Overview
+// ---------------------------
 export type ServiceItem = {
   title: string;
   description: string;
@@ -58,6 +69,9 @@ export type ServicesOverviewData = {
   service_3_url: string;
 };
 
+// ---------------------------
+// Featured Gallery
+// ---------------------------
 export type FeaturedGallery = {
   featured_gallery: {
     image_1?: string;
@@ -68,6 +82,13 @@ export type FeaturedGallery = {
   };
 };
 
+export type FeaturedGallerySliderProps = {
+  images: string[];
+};
+
+// ---------------------------
+// Call To Action
+// ---------------------------
 export type CallToActionData = {
   call_to_action: {
     heading: string;
@@ -84,10 +105,16 @@ export type CallToActionProps = {
   buttonUrl: string;
 };
 
-export type FeaturedGallerySliderProps = {
-  images: string[];
-};
-export type HomePageData = {
-  acf: HeroData & AboutBriefData & ServicesOverviewData & FeaturedGallery & CallToActionData;
-};
+// ---------------------------
+// Combined ACF Type for Homepage
+// ---------------------------
+export type HomePageACF = HeroData &
+  AboutBriefData &
+  ServicesOverviewData &
+  FeaturedGallery &
+  CallToActionData;
 
+// Used when fetching the page data from WP REST API
+export type HomePageData = {
+  acf: HomePageACF;
+};

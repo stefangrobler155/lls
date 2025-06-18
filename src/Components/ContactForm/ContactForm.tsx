@@ -1,6 +1,5 @@
 'use client';
 
-import './ContactForm.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -22,26 +21,59 @@ export default function ContactForm() {
 
     if (res.ok) {
       form.reset();
-      router.push('/thank-you'); // ✅ Redirect here
+      router.push('/thank-you');
     } else {
       setFormState('error');
     }
   }
 
   return (
-    <form className="contact-form" onSubmit={handleSubmit}>
-      <h2>Get in Touch</h2>
+    
+        <form
+          onSubmit={handleSubmit}
+          className="max-w-xl mx-auto bg-white rounded-lg space-y-6"
+        >
+          <input
+            type="text"
+            name="your-name"
+            placeholder="Your Name"
+            required
+            className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+          />
+          <input
+            type="email"
+            name="your-email"
+            placeholder="Your Email"
+            required
+            className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+          />
+          <input
+            type="tel"
+            name="your-phone"
+            placeholder="Your Phone Number"
+            required
+            className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+          />
+          <textarea
+            name="your-message"
+            placeholder="Your Message"
+            required
+            rows={5}
+            className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black"
+          ></textarea>
 
-      <input type="text" name="your-name" placeholder="Your Name" required />
-      <input type="email" name="your-email" placeholder="Your Email" required />
-      <input type="tel" name="your-phone" placeholder="Your Phone Number" required />
-      <textarea name="your-message" placeholder="Your Message" required></textarea>
+          <button
+            type="submit"
+            disabled={formState === 'sending'}
+            className="w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition"
+          >
+            {formState === 'sending' ? 'Sending...' : 'Send Message'}
+          </button>
 
-      <button type="submit" disabled={formState === 'sending'}>
-        {formState === 'sending' ? 'Sending...' : 'Send Message'}
-      </button>
-
-      {formState === 'error' && <p className="error">Oops! Something went wrong.</p>}
-    </form>
+          {formState === 'error' && (
+            <p className="text-sm text-red-600 text-center">Oops! Something went wrong.</p>
+          )}
+        </form>
+    
   );
 }

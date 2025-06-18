@@ -9,11 +9,14 @@ export default async function HomePage() {
   const home = await getHomePageData();
   const acf = home?.acf;
 
+  if (!acf) return <p>Could not load homepage data.</p>;
+  const about = acf.about_component;
+
   if (!acf) return <p>Something went wrong. Please try again later.</p>;
   if (!acf.hero_title || !acf.hero_subtitle || !acf.hero_background_url) {
     return <p>Missing hero data. Please check your configuration.</p>;
   }
-  if (!acf.about_title || !acf.about_text || !acf.about_image_url) {
+  if (!about || !about.title || !about.subtitle) {
     return <p>Missing about section data. Please check your configuration.</p>;
   }
   if (!acf.services_title || !acf.services_description) {
@@ -36,7 +39,7 @@ export default async function HomePage() {
 ].filter((img): img is string => typeof img === 'string');
 
   return (
-    <main>
+    <div className="page__container">
       <Hero
         title={acf.hero_title}
         subtitle={acf.hero_subtitle}
@@ -45,10 +48,11 @@ export default async function HomePage() {
         ctaUrl={acf.cta_url}
       />
       <AboutBrief
-        title={acf.about_title}
-        text={acf.about_text}
-        imageUrl={acf.about_image_url}
+        title={about.title}
+        subtitle={about.subtitle}
+        images={[about.image_1, about.image_2, about.image_3].filter(Boolean)}
       />
+      <FeaturedGallerySlider images={featuredGallery} />
       <ServicesOverview
         title={acf.services_title}
         description={acf.services_description}
@@ -73,7 +77,7 @@ export default async function HomePage() {
           },
         ]}
       />
-      <FeaturedGallerySlider images={featuredGallery} />
+      
       
       <CallToAction
         heading={acf.call_to_action.heading}
@@ -82,6 +86,6 @@ export default async function HomePage() {
         buttonUrl={acf.call_to_action.button_url}
       />
 
-    </main>
+    </ div>
   );
 }
