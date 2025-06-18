@@ -4,6 +4,7 @@ import AboutBrief from '@/components/AboutBrief/AboutBrief';
 import ServicesOverview from '@/components/ServicesOverview/ServicesOverview';
 import FeaturedGallerySlider from '@/components/FeaturedGallerySlider/FeaturedGallerySlider';
 import CallToAction from '@/components/CallToAction/CallToAction';
+import FeaturedGallerySection from '@/components/FeaturedGallerySection/FeaturedGallerySection';
 
 export default async function HomePage() {
   const home = await getHomePageData();
@@ -52,7 +53,15 @@ export default async function HomePage() {
         subtitle={about.subtitle}
         images={[about.image_1, about.image_2, about.image_3].filter(Boolean)}
       />
-      <FeaturedGallerySlider images={featuredGallery} />
+    
+    {/* Recent Work Section */}
+    <FeaturedGallerySection
+      title={acf.recent_work_title}
+      subtitle={acf.recent_work_subtitle}
+      text={acf.recent_work_text}
+      images={featuredGallery}
+    />
+
       <ServicesOverview
         title={acf.services_title}
         description={acf.services_description}

@@ -112,7 +112,13 @@ export type HomePageACF = HeroData &
   AboutBriefData &
   ServicesOverviewData &
   FeaturedGallery &
-  CallToActionData;
+  CallToActionData & {
+    about_component: AboutComponent;
+
+    recent_work_title: string;
+    recent_work_subtitle: string;
+    recent_work_text: string;
+  };
 
 // Used when fetching the page data from WP REST API
 export type HomePageData = {
