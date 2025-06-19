@@ -9,8 +9,8 @@ export default function CallToAction({
   if (!heading || !text || !buttonUrl) return null;
 
   return (
-    <section className="bg-black text-white py-16">
-      <div className="max-w-4xl mx-auto text-center px-4">
+    <section className=" text-white ">
+      <div className="bg-black max-w-7xl mx-auto text-center px-4 py-16">
         <h2 className="text-3xl font-bold mb-4">{heading}</h2>
         <p className="text-lg mb-6">{text}</p>
         {buttonText && (
