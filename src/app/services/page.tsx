@@ -21,12 +21,18 @@ export default async function ServicesPage() {
   const servicePages: WPPage[] = (await Promise.all(serviceRequests)).map(result => result[0]);
 
   return (
-    <section className="h-screen py-16 bg-white">
-      <div className="max-w-7xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-12">
+    <section className="min-h-screen bg-white mx-auto">
+      <div className="max-w-7xl pt-16 mx-auto px-4">
+        <div className="max-w-4xl mx-auto px-4 text-center mb-12">
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">
           Our Photography Services
-        </h1>
-
+          </h1>
+          <p className="text-gray-900 text-lg max-w-2xl mx-auto">
+            Explore our range of photography services designed to capture your most cherished moments.  
+            From weddings to family portraits, we have something for everyone.
+          </p>
+        </div>
+        
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {servicePages.map((service) => (
             <Link

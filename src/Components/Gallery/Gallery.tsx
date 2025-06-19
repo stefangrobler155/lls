@@ -27,9 +27,9 @@ export default function Gallery({ images }: GalleryProps) {
       : images.filter((img) => img.categories.includes(activeCategory));
 
   return (
-    <section className=" py-16 px-4">
+    <section className="px-4 mb-12">
       {/* Filters */}
-      <div className=" max-w-1200 flex flex-wrap justify-center gap-4 mb-8">
+      <div className=" max-w-7xl flex flex-wrap justify-center gap-4 mb-8">
         {categories.map((cat) => (
           <button
             key={cat}

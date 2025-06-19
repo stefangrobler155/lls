@@ -12,7 +12,7 @@ type Props = {
 
 export default function FeaturedGallerySection({ title, subtitle, text, images }: Props) {
   return (
-    <section className="bg-white py-16">
+    <section className="bg-white mb-12">
         <div className="flex flex-col items-center text-center mb-8">
             <div className="max-w-7xl mx-auto px-4 text-center mb-12">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">{title}</h2>

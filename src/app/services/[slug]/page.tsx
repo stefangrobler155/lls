@@ -59,11 +59,13 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   if (!service) return notFound();
 
   return (
-    <main className='flex flex-col pt-30 min-h-screen bg-white p-4'>
+    <section className='flex flex-col pt-30 min-h-screen bg-white p-4'>
+      <div className="">
       <h1 className='text-5xl text-center text-gray-900'>{service.title}</h1>
-      <div className='max-w-1200' dangerouslySetInnerHTML={{ __html: service.content }} />
+      {/* <div className='max-w-1200' dangerouslySetInnerHTML={{ __html: service.content }} /> */}
+      </div>
       <PackagesSection packages={service.packages} />
-    </main>
+    </section>
   );
 }
 

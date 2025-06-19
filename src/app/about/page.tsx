@@ -6,7 +6,7 @@ export default async function AboutPage() {
   const about = data[0]?.acf;
 
   return (
-    <main>
+    <section className="min-h-screen bg-white mx-auto">
       <AboutSection
         title={about.about_title}
         intro={about.about_intro}
@@ -14,6 +14,6 @@ export default async function AboutPage() {
         imageUrl={about.about_image_url}
         signature={about.about_signature}
       />
-    </main>
+    </section>
   );
 }
