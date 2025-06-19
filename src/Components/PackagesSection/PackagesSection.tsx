@@ -14,10 +14,8 @@ export default function PackagesSection({ packages }: PackagesSectionProps) {
   if (!packages || packages.length === 0) return null;
 
   return (
-    <section className="py-16 bg-white">
+    <div className="">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center text-gray-900 mb-12">Our Packages</h2>
-
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {packages.map((pkg, index) => {
             const includesList = pkg.includes?.split('\n') ?? [];
@@ -49,6 +47,6 @@ export default function PackagesSection({ packages }: PackagesSectionProps) {
           })}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
