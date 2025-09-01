@@ -1,4 +1,4 @@
-import AboutSection from '@/components/AboutSection/AboutSection';
+import AboutSection from '../../components/AboutSection/AboutSection';
 
 export default async function AboutPage() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API}/pages?slug=about`);
