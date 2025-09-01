@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 type AboutProps = {
   title: string;
   subtitle: string;
@@ -18,7 +16,7 @@ export default function AboutSection({ title, subtitle, images }: AboutProps) {
       <div className="max-w-7xl mx-auto px-4 grid gap-6 md:grid-cols-3">
         {images.map((url, index) => (
           <div key={index} className="rounded-lg overflow-hidden shadow-md">
-            <Image
+            <img
               src={url}
               alt={`About ${index + 1}`}
               className="w-full h-64 object-cover"
