@@ -1,4 +1,4 @@
-import ContactForm from '../../components/ContactForm/ContactForm';
+import ContactForm from '../../components/ContactForm/ContactForm'
 import Head from 'next/head';
 import { getContactPageData } from '@/lib/queries';
 import Image from 'next/image';

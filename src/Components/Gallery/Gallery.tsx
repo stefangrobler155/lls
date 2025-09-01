@@ -1,9 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 'use client';
-
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import { useState } from 'react';
+import Image from 'next/image';
 
 type GalleryImage = {
   url: string;
@@ -49,12 +48,14 @@ export default function Gallery({ images }: GalleryProps) {
       {/* Gallery Grid */}
       <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {filteredImages.map((img, i) => (
-          <img
+          <Image
             key={i}
             src={img.url}
             alt={img.title || `Gallery ${i + 1}`}
             onClick={() => setIndex(i)}
             className="w-full h-48 object-cover rounded-lg cursor-pointer transition-transform hover:scale-105"
+            width={500}
+            height={500}
           />
         ))}
       </div>

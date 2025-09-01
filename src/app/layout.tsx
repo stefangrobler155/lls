@@ -1,6 +1,6 @@
-import Header from '../components/Header/Header';
+import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer/Footer';
 import './globals.css';
-import Footer from '../components/Footer/Footer';
 
 export const metadata = {
   title: 'Lumina Lens Studio',
