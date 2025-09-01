@@ -2,7 +2,6 @@ import { getHomePageData } from '@/lib/queries';
 import Hero from '@/components/Hero/Hero';
 import AboutBrief from '@/components/AboutBrief/AboutBrief';
 import ServicesOverview from '@/components/ServicesOverview/ServicesOverview';
-import FeaturedGallerySlider from '@/components/FeaturedGallerySlider/FeaturedGallerySlider';
 import CallToAction from '@/components/CallToAction/CallToAction';
 import FeaturedGallerySection from '@/components/FeaturedGallerySection/FeaturedGallerySection';
 

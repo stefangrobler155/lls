@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 // app/services/page.tsx
 import Link from 'next/link';
 

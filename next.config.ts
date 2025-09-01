@@ -1,7 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['lls.sfgweb.co.za'], // Add the hostname here
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'lls.sfgweb.co.za',
+      },
+    ],
   },
 };
 

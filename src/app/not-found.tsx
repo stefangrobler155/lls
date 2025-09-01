@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 // app/not-found.tsx
 export default function NotFound() {
   return (
@@ -6,12 +8,12 @@ export default function NotFound() {
       <p className="text-gray-600 text-lg mb-6">
         Sorry, the page you’re looking for doesn’t exist or has been moved.
       </p>
-      <a
+      <Link
         href="/"
         className="inline-block bg-gray-900 text-white px-6 py-3 rounded hover:bg-gray-700 transition"
       >
         Back to Home
-      </a>
+      </Link>
     </section>
   );
 }
