@@ -1,16 +1,8 @@
-import type { NextConfig } from "next";
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: 'http',
-        hostname: 'lls.local',
-        port: '',
-        pathname: '/wp-content/uploads/**',
-      },
-    ],
+    domains: ['lls.sfgweb.co.za'], // Add the hostname here
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;

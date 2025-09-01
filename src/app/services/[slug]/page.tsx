@@ -10,7 +10,7 @@ type Package = {
 };
 
 async function getServiceData(slug: string) {
-  const res = await fetch(`http://lls.local/wp-json/wp/v2/pages?slug=${slug}&acf_format=standard`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API}/pages?slug=${slug}&acf_format=standard`, {
     next: { revalidate: 60 },
     
 

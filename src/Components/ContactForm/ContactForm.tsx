@@ -14,7 +14,7 @@ export default function ContactForm() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
-    const res = await fetch('http://lls.local/wp-json/contact-form-7/v1/contact-forms/123/feedback', {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API}/contact-form-7/v1/contact-forms/123/feedback`, {
       method: 'POST',
       body: data,
     });

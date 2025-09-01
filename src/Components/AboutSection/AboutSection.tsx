@@ -1,6 +1,7 @@
 import { AboutSectionProps } from '@/lib/types';
 import Image from 'next/image';
 
+
 export default function AboutSection({
   title,
   intro,

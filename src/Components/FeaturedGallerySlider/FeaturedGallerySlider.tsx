@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type FeaturedGallerySliderProps = {
   images: string[];
 };
@@ -16,7 +18,7 @@ export default function FeaturedGallerySlider({ images }: FeaturedGallerySliderP
                   key={index}
                   className="flex-shrink-0 w-64 h-48 rounded-lg overflow-hidden shadow"
                 >
-                  <img src={url} alt={`Slide ${index}`} className="w-full h-full object-cover" />
+                  <Image src={url} alt={`Slide ${index}`} className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>

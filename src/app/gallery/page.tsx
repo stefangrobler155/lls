@@ -10,13 +10,20 @@ type GalleryImage = {
 const allowedCategories = ['wedding', 'engagement', 'family'];
 
 async function fetchCategoryImages(): Promise<GalleryImage[]> {
-  const res = await fetch('http://lls.local/wp-json/wp/v2/media?per_page=50');
+  const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API}/media?per_page=50`);
   if (!res.ok) return [];
 
   const media = await res.json();
 
+  type MediaItem = {
+    source_url: string;
+    class_list?: string[];
+    title?: { rendered?: string };
+    caption?: { rendered?: string };
+  };
+
   return media
-    .map((img: any): GalleryImage | null => {
+    .map((img: MediaItem): GalleryImage | null => {
       const categories =
         img.class_list
           ?.filter((cls: string) => cls.startsWith('attachment_category-'))

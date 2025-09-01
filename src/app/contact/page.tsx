@@ -1,7 +1,7 @@
 import ContactForm from '@/components/ContactForm/ContactForm';
-import Image from 'next/image';
 import Head from 'next/head';
 import { getContactPageData } from '@/lib/queries';
+import Image from 'next/image';
 
 export default async function Contact() {
   const acf = await getContactPageData();
@@ -28,6 +28,7 @@ export default async function Contact() {
             <ContactForm />
           </div>
           <div className="md:w-1/2">
+            
             <Image
               src={acf.image_url}
               alt="Contact Us Illustration"

@@ -15,7 +15,7 @@ const SERVICE_SLUGS = ['weddings', 'engagements', 'family'];
 
 export default async function ServicesPage() {
   const serviceRequests = SERVICE_SLUGS.map(slug =>
-    fetch(`http://lls.local/wp-json/wp/v2/pages?slug=${slug}`).then(res => res.json())
+    fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API}/pages?slug=${slug}`).then(res => res.json())
   );
 
   const servicePages: WPPage[] = (await Promise.all(serviceRequests)).map(result => result[0]);
