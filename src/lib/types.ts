@@ -87,6 +87,16 @@ export type FeaturedGallerySliderProps = {
 };
 
 // ---------------------------
+// Gallery types
+// ---------------------------
+export type GalleryImage = {
+  url: string;
+  categories: string[];
+  title?: string;
+  caption?: string;
+};
+
+// ---------------------------
 // Call To Action
 // ---------------------------
 export type CallToActionData = {
