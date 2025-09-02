@@ -1,9 +1,13 @@
-import AboutSection from '../../components/AboutSection';
+import AboutSection from "@/components/AboutSection";
+import { fetchAboutPage } from "@/lib/queries";
 
 export default async function AboutPage() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API}/pages?slug=about`);
-  const data = await res.json();
-  const about = data[0]?.acf;
+  const about = await fetchAboutPage();
+
+  if (!about) {
+    // Optional fallback — otherwise error.tsx will handle it
+    return <p className="text-center py-10">No About Page content found.</p>;
+  }
 
   return (
     <section className="min-h-screen bg-white mx-auto">
