@@ -1,7 +1,5 @@
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API;
 
-// lib/queries.ts
-
 import { HomePageData } from './types';
 
 export async function getHomePageData(): Promise<HomePageData | null> {

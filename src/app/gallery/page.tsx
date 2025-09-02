@@ -1,4 +1,4 @@
-import Gallery from '../../components/Gallery/Gallery';
+import Gallery from '../../components/Gallery';
 
 type GalleryImage = {
   url: string;

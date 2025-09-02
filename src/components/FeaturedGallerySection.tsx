@@ -1,6 +1,6 @@
 // components/FeaturedGallerySection.tsx
 
-import FeaturedGallerySlider from '../FeaturedGallerySlider/FeaturedGallerySlider';
+import FeaturedGallerySlider from './FeaturedGallerySlider';
 
 type Props = {
   title: string;

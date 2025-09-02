@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import PackagesSection from '@/components/PackagesSection/PackagesSection';
+import PackagesSection from '@/components/PackagesSection';
 
 type Package = {
   title: string;

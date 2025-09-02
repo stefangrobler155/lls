@@ -1,9 +1,9 @@
 import { getHomePageData } from '@/lib/queries';
-import Hero from '@/components/Hero/Hero';
-import AboutBrief from '@/components/AboutBrief/AboutBrief';
-import ServicesOverview from '@/components/ServicesOverview/ServicesOverview';
-import CallToAction from '@/components/CallToAction/CallToAction';
-import FeaturedGallerySection from '@/components/FeaturedGallerySection/FeaturedGallerySection';
+import Hero from '@/components/Hero';
+import AboutBrief from '@/components/AboutBrief';
+import ServicesOverview from '@/components/ServicesOverview';
+import CallToAction from '@/components/CallToAction';
+import FeaturedGallerySection from '@/components/FeaturedGallerySection';
 
 export default async function HomePage() {
   const home = await getHomePageData();
