@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@import "tailwindcss";
+
+/* Define keyframes inside @keyframes */
+@keyframes scroll-loop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Extend Tailwind with utilities using @utility */
+@utility animate-scroll-loop {
+  animation: scroll-loop 30s linear infinite;
+}
+

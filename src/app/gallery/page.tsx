@@ -4,7 +4,6 @@ import { fetchCategoryImages } from "@/lib/queries";
 export default async function GalleryPage() {
   const galleryImages = await fetchCategoryImages();
 
-  // Remove duplicates by URL
   const uniqueGalleryImages = Array.from(
     new Map(galleryImages.map((img) => [img.url, img])).values()
   );

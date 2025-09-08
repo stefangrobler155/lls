@@ -69,6 +69,38 @@ export type ServicesOverviewData = {
   service_3_url: string;
 };
 
+export type ServicePackage = {
+  title: string;
+  description: string;
+  includes: string;
+  price: string;
+  image_url: string;
+};
+
+export type ServiceData = {
+  title: string;
+  content: string;
+  packages: ServicePackage[];
+};
+
+export type Package = {
+  title: string;
+  description: string;
+  includes: string;
+  price: string;
+  image_url: string;
+};
+
+export type Service = {
+  title: string;
+  content: string;
+  packages: Package[];
+};
+
+export type PackagesSectionProps = {
+  packages: Package[];
+};
+
 // ---------------------------
 // Featured Gallery
 // ---------------------------
@@ -87,14 +119,31 @@ export type FeaturedGallerySliderProps = {
 };
 
 // ---------------------------
-// Gallery types
+// Gallery
 // ---------------------------
+// Allowed gallery categories as a readonly tuple
+export const galleryCategories = ["wedding", "engagement", "family"] as const;
+
+// Actual category types
+export type GalleryCategory = typeof galleryCategories[number];
+
+// Add "all" for UI filtering
+export type GalleryFilter = GalleryCategory | "all";
+
+// Types for Gallery
 export type GalleryImage = {
   url: string;
   categories: string[];
   title?: string;
   caption?: string;
 };
+
+export type GalleryProps = {
+  images: GalleryImage[];
+};
+
+
+
 
 // ---------------------------
 // Call To Action

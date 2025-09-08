@@ -1,35 +1,26 @@
 'use client';
+
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import { useState } from 'react';
 import Image from 'next/image';
+import { GalleryProps, galleryCategories, GalleryFilter } from '@/lib/types';
 
-type GalleryImage = {
-  url: string;
-  categories: string[];
-  title?: string;
-  caption?: string;
-};
-
-type GalleryProps = {
-  images: GalleryImage[];
-};
-
-const categories = ['all', 'wedding', 'engagement', 'family'];
+const categories: GalleryFilter[] = ["all", ...galleryCategories];
 
 export default function Gallery({ images }: GalleryProps) {
   const [index, setIndex] = useState(-1);
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeCategory, setActiveCategory] = useState<GalleryFilter>("all");
 
   const filteredImages =
-    activeCategory === 'all'
+    activeCategory === "all"
       ? images
       : images.filter((img) => img.categories.includes(activeCategory));
 
   return (
     <section className="px-4 mb-12">
       {/* Filters */}
-      <div className=" max-w-7xl flex flex-wrap justify-center gap-4 mb-8">
+      <div className="max-w-7xl flex flex-wrap justify-center gap-4 mb-8">
         {categories.map((cat) => (
           <button
             key={cat}

@@ -1,6 +1,6 @@
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API;
 
-import { HomePageData, GalleryImage } from './types';
+import { HomePageData, GalleryImage, GalleryCategory, galleryCategories, Service, Package } from './types';
 // ---------------------------
 // Home Page Query
 // ---------------------------
@@ -55,28 +55,25 @@ export async function fetchAboutPage() {
 // ---------------------------
 // Gallery Page Data
 // ---------------------------
-const allowedCategories = ["wedding", "engagement", "family"];
-
-type MediaItem = {
-  source_url: string;
-  class_list?: string[];
-  title?: { rendered?: string };
-  caption?: { rendered?: string };
-};
 
 export async function fetchCategoryImages(): Promise<GalleryImage[]> {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_WORDPRESS_API}/media?per_page=50`,
-      { next: { revalidate: 60 } } // ISR (optional, avoids rebuilding on every request)
+      { next: { revalidate: 60 } }
     );
 
     if (!res.ok) {
-      console.error("Failed to fetch gallery images", res.statusText);
+      console.error("Failed to fetch gallery images:", res.statusText);
       return [];
     }
 
-    const media: MediaItem[] = await res.json();
+    const media: {
+      source_url: string;
+      class_list?: string[];
+      title?: { rendered?: string };
+      caption?: { rendered?: string };
+    }[] = await res.json();
 
     return media
       .map((img): GalleryImage | null => {
@@ -85,9 +82,10 @@ export async function fetchCategoryImages(): Promise<GalleryImage[]> {
             ?.filter((cls) => cls.startsWith("attachment_category-"))
             .map((cls) => cls.replace("attachment_category-", "")) || [];
 
-        const hasAllowedCategory = categories.some((cat) =>
-          allowedCategories.includes(cat)
+        const hasAllowedCategory = categories.some((cat): cat is GalleryCategory =>
+          (galleryCategories as readonly string[]).includes(cat)
         );
+
         if (!hasAllowedCategory) return null;
 
         return {
@@ -102,4 +100,53 @@ export async function fetchCategoryImages(): Promise<GalleryImage[]> {
     console.error("Error fetching gallery images:", error);
     return [];
   }
+}
+
+// Servives
+
+export async function fetchServiceData(slug: string): Promise<Service | null> {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_WORDPRESS_API}/pages?slug=${slug}&acf_format=standard`,
+    {
+      next: { revalidate: 60 },
+    }
+  );
+
+  if (!res.ok) return null;
+
+  const data = await res.json();
+  if (!data || data.length === 0) return null;
+
+  const page = data[0];
+  const acf = page.acf;
+
+  const packages: Package[] = [
+    {
+      title: acf?.silver_package?.title,
+      description: acf?.silver_package?.description,
+      includes: acf?.silver_package?.includes ?? "",
+      price: acf?.silver_package?.price,
+      image_url: acf?.silver_package?.image_url,
+    },
+    {
+      title: acf?.gold_radiance_package?.title,
+      description: acf?.gold_radiance_package?.description,
+      includes: acf?.gold_radiance_package?.includes ?? "",
+      price: acf?.gold_radiance_package?.price,
+      image_url: acf?.gold_radiance_package?.image_url,
+    },
+    {
+      title: acf?.platinum_package?.title,
+      description: acf?.platinum_package?.description,
+      includes: acf?.platinum_package?.includes ?? "",
+      price: acf?.platinum_package?.price,
+      image_url: acf?.platinum_package?.image_url,
+    },
+  ];
+
+  return {
+    title: page.title.rendered,
+    content: page.content.rendered,
+    packages,
+  };
 }

@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 // app/services/page.tsx
+import Image from 'next/image';
 import Link from 'next/link';
 
 type WPPage = {
@@ -42,10 +42,12 @@ export default async function ServicesPage() {
               className="block rounded-lg shadow-md hover:shadow-lg transition bg-gray-50 overflow-hidden"
             >
               {service.acf.service_image_url && (
-                <img
+                <Image
                   src={service.acf.service_image_url}
                   alt={service.acf.service_title}
                   className="w-full h-100 object-cover"
+                  width={500}
+                  height={500}
                 />
               )}
               <div className="p-6">
