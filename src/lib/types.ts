@@ -111,7 +111,17 @@ export type Service = {
 export type PackagesSectionProps = {
   packages: Package[];
 };
-
+export type ServiceOverviewItem = {
+  title: string;
+  description: string;
+  imageUrl?: string;
+  url?: string;
+};
+export type ServicesOverviewProps = {
+  title: string;
+  description: string;
+  services: ServiceOverviewItem[];
+};
 // ---------------------------
 // Featured Gallery
 // ---------------------------
