@@ -1,6 +1,6 @@
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API;
 
-import { HomePageData, GalleryImage, GalleryCategory, galleryCategories, Service, Package } from './types';
+import { HomePageData, GalleryImage, GalleryCategory, galleryCategories, Service, Package, WPPage  } from './types';
 // ---------------------------
 // Home Page Query
 // ---------------------------
@@ -149,4 +149,37 @@ export async function fetchServiceData(slug: string): Promise<Service | null> {
     content: page.content.rendered,
     packages,
   };
+}
+
+// Services Page
+const SERVICE_SLUGS = ["weddings", "engagements", "family"] as const;
+
+/**
+ * Fetch a single WordPress page by slug
+ */
+export async function fetchPageBySlug(slug: string): Promise<WPPage | null> {
+  try {
+    const res = await fetch(`${API_URL}/pages?slug=${slug}`, {
+      next: { revalidate: 60 }, // ISR caching
+    });
+
+    if (!res.ok) {
+      console.error(`Failed to fetch page: ${slug}`, res.statusText);
+      return null;
+    }
+
+    const data = await res.json();
+    return data[0] ?? null;
+  } catch (err) {
+    console.error(`Error fetching page ${slug}:`, err);
+    return null;
+  }
+}
+
+/**
+ * Fetch multiple services by their slugs
+ */
+export async function fetchServicePages(): Promise<WPPage[]> {
+  const results = await Promise.all(SERVICE_SLUGS.map(fetchPageBySlug));
+  return results.filter((page): page is WPPage => page !== null);
 }

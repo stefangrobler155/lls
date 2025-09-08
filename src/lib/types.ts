@@ -45,6 +45,17 @@ export type AboutSectionProps = {
 // ---------------------------
 // Services Overview
 // ---------------------------
+export type WPPage = {
+  id: number;
+  slug: string;
+  acf: {
+    service_title: string;
+    service_description: string;
+    service_image_url: string;
+  };
+};
+
+
 export type ServiceItem = {
   title: string;
   description: string;

@@ -53,7 +53,6 @@ export default async function HomePage() {
         images={[about.image_1, about.image_2, about.image_3].filter(Boolean)}
       />
     
-    {/* Recent Work Section */}
     <FeaturedGallerySection
       title={acf.recent_work_title}
       subtitle={acf.recent_work_subtitle}
