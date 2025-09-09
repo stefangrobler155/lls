@@ -48,15 +48,17 @@ export type AboutSectionProps = {
 export type WPPage = {
   id: number;
   slug: string;
-  title: {
-    rendered: string;
-  };
-  content: {
-    rendered: string;
-  };
+  title: { rendered: string };
+  content: { rendered: string };
   link?: string;
-  acf?: Record<string, unknown>; // ✅ safer than any
+  acf?: {
+    service_image_url?: string;
+    service_title?: string;
+    service_description?: string;
+    [key: string]: unknown;
+  };
 };
+
 
 
 export type ServiceItem = {

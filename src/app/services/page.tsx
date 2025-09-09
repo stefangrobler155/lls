@@ -34,21 +34,22 @@ export default async function ServicesPage() {
               key={service.id}
               className="block rounded-lg shadow-md hover:shadow-lg transition bg-gray-50 overflow-hidden"
             >
-              {service.acf.service_image_url && (
-                <Image
-                  src={service.acf.service_image_url}
-                  alt={service.acf.service_title}
-                  className="w-full h-100 object-cover"
-                  width={500}
-                  height={500}
-                />
-              )}
+              {service.acf?.service_image_url && (
+              <Image
+                src={service.acf.service_image_url}
+                alt={service.acf?.service_title ?? "Service image"}
+                className="w-full h-100 object-cover"
+                width={500}
+                height={500}
+              />
+            )}
+
               <div className="p-6">
                 <h2 className="text-xl font-semibold text-gray-800 mb-2">
-                  {service.acf.service_title}
+                  {service.acf?.service_title}
                 </h2>
                 <p className="text-gray-600 text-sm mb-4">
-                  {service.acf.service_description}
+                  {service.acf?.service_description}
                 </p>
                 <span className="text-sm text-black font-medium hover:underline">
                   Learn More →
