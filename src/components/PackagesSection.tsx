@@ -20,9 +20,10 @@ export default function PackagesSection({ packages }: PackagesSectionProps) {
                 <Image
                   src={pkg.image_url}
                   alt={pkg.title}
-                  className="w-full h-[400px] object-cover"
+                  className="object-cover rounded-lg"
                   width={400}
                   height={400}
+                  style={{ width: "100%", height: "auto" }}
                 />
                 <div className="p-6">
                   <h3 className="text-xl font-semibold text-gray-800 mb-2">{pkg.title}</h3>

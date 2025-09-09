@@ -1,10 +1,26 @@
-// src\components\ServicesOverview.tsx
-import Image from 'next/image';
-import Link from 'next/link';
+// src/components/ServicesOverview.tsx
+import Image from "next/image";
+import Link from "next/link";
 import { ServicesOverviewProps } from "@/lib/types";
 
+// Helper to normalize URLs from WordPress
+function normalizeUrl(url?: string): string | undefined {
+  if (!url) return undefined;
 
-export default function ServicesOverview({ title, description, services }: ServicesOverviewProps) {
+  try {
+    const parsed = new URL(url);
+    return parsed.pathname; // keep only "/services/weddings"
+  } catch {
+    // Already relative or invalid → just return it
+    return url;
+  }
+}
+
+export default function ServicesOverview({
+  title,
+  description,
+  services,
+}: ServicesOverviewProps) {
   return (
     <section className="bg-white flex items-center justify-center mb-12">
       <div className="max-w-7xl mx-auto px-4">
@@ -13,19 +29,22 @@ export default function ServicesOverview({ title, description, services }: Servi
           <p className="text-lg text-gray-900 mt-2">{description}</p>
         </div>
 
-
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => {
+            const normalizedUrl = normalizeUrl(service.url);
+
             const CardContent = (
               <div className="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-md transition">
                 {service.imageUrl && (
-                  <div className="h-100 w-full overflow-hidden">
+                  <div className="h-100 w-[400px] overflow-hidden">
                     <Image
                       src={service.imageUrl}
                       alt={service.title}
                       className="w-full h-full object-cover"
                       width={400}
                       height={400}
+                      style={{ width: "100%", height: "auto" }}
+                      priority
                     />
                   </div>
                 )}
@@ -38,16 +57,15 @@ export default function ServicesOverview({ title, description, services }: Servi
               </div>
             );
 
-            return service.url ? (
+            return normalizedUrl ? (
               <Link
-                key={service.url}
-                href={service.url}
+                key={normalizedUrl}
+                href={normalizedUrl}
                 aria-label={`View details about ${service.title}`}
                 className="block"
               >
                 {CardContent}
-            </Link>
-
+              </Link>
             ) : (
               <div key={service.title}>{CardContent}</div>
             );
