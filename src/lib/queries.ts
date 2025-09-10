@@ -1,7 +1,6 @@
 const API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API;
 
 import { HomePageData, GalleryImage, GalleryCategory, galleryCategories, Service, Package, WPPage  } from './types';
-import { normalizeUrl } from "@/lib/utils";
 // ---------------------------
 // Home Page Query
 // ---------------------------
@@ -161,26 +160,21 @@ const SERVICE_SLUGS = ["weddings", "engagements", "family"] as const;
 export async function fetchPageBySlug(slug: string): Promise<WPPage | null> {
   try {
     const res = await fetch(`${API_URL}/pages?slug=${slug}`, {
-      next: { revalidate: 60 },
+      next: { revalidate: 60 }, // ISR caching
     });
 
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.error(`Failed to fetch page: ${slug}`, res.statusText);
+      return null;
+    }
 
     const data = await res.json();
-    const page = data[0];
-
-    if (!page) return null;
-
-    return {
-      ...page,
-      link: normalizeUrl(page.link), // ✅ always normalized here
-    };
+    return data[0] ?? null;
   } catch (err) {
     console.error(`Error fetching page ${slug}:`, err);
     return null;
   }
 }
-
 
 /**
  * Fetch multiple services by their slugs
