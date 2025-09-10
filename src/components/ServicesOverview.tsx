@@ -36,14 +36,13 @@ export default function ServicesOverview({
             const CardContent = (
               <div className="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-md transition">
                 {service.imageUrl && (
-                  <div className="h-100 w-[400px] overflow-hidden">
+                  <div className="h-100 w-full overflow-hidden">
                     <Image
                       src={service.imageUrl}
                       alt={service.title}
                       className="w-full h-full object-cover"
-                      width={400}
-                      height={400}
-                      style={{ width: "100%", height: "auto" }}
+                      width={300}
+                      height={300} 
                       priority
                     />
                   </div>
