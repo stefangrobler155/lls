@@ -179,7 +179,7 @@ export type CallToActionData = {
     heading: string;
     text: string;
     button_text: string;
-    button_url: string;
+    button_url: { url: string};
   };
 };
 

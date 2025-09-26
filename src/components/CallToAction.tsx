@@ -8,6 +8,7 @@ export default function CallToAction({
   buttonUrl,
 }: CallToActionProps) {
   if (!heading || !text || !buttonUrl) return null;
+  
   return (
     <section className=" text-white ">
       <div className="bg-black max-w-7xl mx-auto text-center px-4 py-16">

@@ -90,7 +90,7 @@ export default async function HomePage() {
         heading={acf.call_to_action.heading}
         text={acf.call_to_action.text}
         buttonText={acf.call_to_action.button_text}
-        buttonUrl={acf.call_to_action.button_url}
+        buttonUrl={acf.call_to_action.button_url.url}
       />
 
     </ div>
