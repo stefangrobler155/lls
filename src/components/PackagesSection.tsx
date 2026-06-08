@@ -1,7 +1,6 @@
 import Image from "next/image";
-import {  PackagesSectionProps } from "../lib/types"
 import Link from "next/link";
-
+import { PackagesSectionProps } from "../lib/types";
 
 export default function PackagesSection({ packages }: PackagesSectionProps) {
   if (!packages || packages.length === 0) return null;
@@ -16,7 +15,6 @@ export default function PackagesSection({ packages }: PackagesSectionProps) {
                 key={index}
                 className="bg-gray-50 rounded-lg overflow-hidden shadow-md hover:shadow-xl hover:scale-[1.06] transition"
               >
-
                 <Image
                   src={pkg.image_url}
                   alt={pkg.title}
@@ -26,14 +24,25 @@ export default function PackagesSection({ packages }: PackagesSectionProps) {
                   style={{ width: "100%", height: "auto" }}
                 />
                 <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{pkg.title}</h3>
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">
+                    {pkg.title}
+                  </h3>
                   <p className="text-gray-600 mb-4">{pkg.description}</p>
 
-                  <ul className="list-disc list-inside text-sm text-gray-700 mb-4 space-y-1">
-                    {packages.map((item, i) => (
-                      <li key={i}>{item.title}</li>
-                    ))}
-                  </ul>
+                  {/* ✅ Fixed: Use pkg.includes instead of remapping packages */}
+                  <div className="mb-4">
+                    <h4 className="font-medium text-gray-800 mb-2">Includes:</h4>
+                    <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">
+                      {pkg.includes
+                        .split(/\r?\n/)                    // Handles \r\n and \n
+                        .filter((line) => line.trim() !== "") // Remove empty lines
+                        .map((line, i) => (
+                          <li key={i}>
+                            {line.replace(/^\s*-\s*/, "").trim()} {/* Clean bullet if any */}
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
 
                   <p className="text-lg font-bold text-gray-900">{pkg.price}</p>
                 </div>
@@ -41,12 +50,15 @@ export default function PackagesSection({ packages }: PackagesSectionProps) {
             );
           })}
         </div>
+
         <div className="py-8 flex justify-end">
-          <Link href={"/services"} className="text-white bg-gray-900 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-900 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800" >
-          Back
-          </ Link>
+          <Link
+            href="/services"
+            className="text-white bg-gray-900 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-900 dark:hover:bg-gray-700 focus:outline-none dark:focus:ring-gray-800"
+          >
+            Back
+          </Link>
         </div>
-        
       </div>
     </div>
   );

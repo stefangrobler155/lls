@@ -1,3 +1,4 @@
+//services/[slug]/page.tsx
 import { notFound } from "next/navigation";
 import PackagesSection from "@/components/PackagesSection";
 import { fetchServiceData } from "@/lib/queries";
@@ -12,7 +13,7 @@ export default async function ServicePage({
   const service = await fetchServiceData(slug);
 
   if (!service) return notFound();
-
+  
   return (
     <section className="min-h-screen bg-white mx-auto mb-12">
       <div className="max-w-7xl pt-16 mx-auto px-4">
