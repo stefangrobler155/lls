@@ -1,6 +1,5 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-// @ts-ignore: CSS side-effect import without type declarations
 import './globals.css';
 
 export const metadata = {

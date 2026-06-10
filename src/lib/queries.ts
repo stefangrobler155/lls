@@ -103,7 +103,7 @@ export async function fetchCategoryImages(): Promise<GalleryImage[]> {
   }
 }
 
-// Servives
+// Services
 // Ensure all WordPress links are relative paths
 export async function fetchServiceData(slug: string): Promise<Service | null> {
   const res = await fetch(
@@ -123,25 +123,31 @@ export async function fetchServiceData(slug: string): Promise<Service | null> {
 
   const packages: Package[] = [
     {
+      id: `${slug}-silver`,
       title: acf?.silver_package?.title,
       description: acf?.silver_package?.description,
       includes: acf?.silver_package?.includes ?? "",
       price: acf?.silver_package?.price,
       image_url: acf?.silver_package?.image_url,
+      duration: Number(acf?.silver_package?.service_duration) || 0,
     },
     {
+      id: `${slug}-gold`,
       title: acf?.gold_radiance_package?.title,
       description: acf?.gold_radiance_package?.description,
       includes: acf?.gold_radiance_package?.includes ?? "",
       price: acf?.gold_radiance_package?.price,
       image_url: acf?.gold_radiance_package?.image_url,
+      duration: Number(acf?.gold_radiance_package?.service_duration) || 0,
     },
     {
+      id: `${slug}-platinum`,
       title: acf?.platinum_package?.title,
       description: acf?.platinum_package?.description,
       includes: acf?.platinum_package?.includes ?? "",
       price: acf?.platinum_package?.price,
       image_url: acf?.platinum_package?.image_url,
+      duration: Number(acf?.platinum_package?.service_duration) || 0,
     },
   ];
 

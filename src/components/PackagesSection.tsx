@@ -4,7 +4,7 @@ import { PackagesSectionProps } from "../lib/types";
 
 export default function PackagesSection({ packages }: PackagesSectionProps) {
   if (!packages || packages.length === 0) return null;
-
+  console.log("📦 Rendering PackagesSection with packages:", packages); // Debug log
   return (
     <div className="">
       <div className="max-w-7xl mx-auto px-4">
@@ -45,6 +45,11 @@ export default function PackagesSection({ packages }: PackagesSectionProps) {
                   </div>
 
                   <p className="text-lg font-bold text-gray-900">{pkg.price}</p>
+                  <Link
+                    href={`/book?package=${pkg.id}`}
+                  >
+                    Book Now
+                  </Link>                  
                 </div>
               </div>
             );

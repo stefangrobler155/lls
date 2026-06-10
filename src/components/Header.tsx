@@ -56,6 +56,11 @@ export default function Header() {
                 Contact
               </Link>
             </li>
+            <li>
+              <Link href="/book" onClick={closeMenu} className="rounded bg-black px-4 py-2 text-white hover:bg-gray-800">
+                Book
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

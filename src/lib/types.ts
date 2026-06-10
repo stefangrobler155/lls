@@ -91,6 +91,7 @@ export type ServicePackage = {
   includes: string;
   price: string;
   image_url: string;
+  duration: number;
 };
 
 export type ServiceData = {
@@ -100,11 +101,13 @@ export type ServiceData = {
 };
 
 export type Package = {
+  id: string;
   title: string;
   description: string;
   includes: string;
   price: string;
   image_url: string;
+  duration: number; 
 };
 
 export type Service = {
