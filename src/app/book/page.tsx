@@ -1,52 +1,48 @@
-import BookingForm from '@/components/BookingForm';
+// This is the booking page that displays the selected package details and includes the booking form.
+import { notFound } from "next/navigation";
+import { fetchServiceData } from "@/lib/queries";
+import BookingForm from "@/components/BookingForm"; 
+import Image from "next/image";
 
-export const metadata = {
-  title: 'Book a Session',
-  description: 'Request a photography booking with Lumina Lens Studio.',
+type BookPageProps = {
+  searchParams: Promise<{ package?: string }>;
 };
 
-export default function BookPage() {
+export default async function BookPage({ searchParams }: BookPageProps) {
+  const params = await searchParams;
+  const packageId = params.package;
+
+  const service = await fetchServiceData(packageId?.split("-")[0] || "");
+  const selectedPackage = service?.packages?.find((pkg: any) => pkg.id === packageId);
+
+  if (!selectedPackage) {
+    notFound();
+  }
+
   return (
-    <section className="min-h-screen bg-white">
-      <div className="mx-auto max-w-7xl px-4 py-16">
-        <div className="mb-10 max-w-3xl">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-gray-500">
-            Booking request
-          </p>
-          <h1 className="mb-4 text-3xl font-bold text-gray-950 md:text-4xl">
-            Book your photography session
-          </h1>
-          <p className="text-lg text-gray-700">
-            Share the details for your preferred session and we will reply with availability,
-            package guidance, and the next steps.
-          </p>
+    <section className="bg-gray-100 py-8">
+      <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row gap-12">
+        <div className="mb-8">
+          <Image
+          src={selectedPackage.image_url}
+          alt={selectedPackage.title}
+          className="w-50 h-auto object-cover rounded-lg mb-6"
+          width={200}
+          height={100}
+        /> 
         </div>
-
-        <div className="grid gap-10 lg:grid-cols-[1fr_360px]">
-          <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm md:p-8">
-            <BookingForm />
-          </div>
-
-          <aside className="space-y-6">
-            <div className="rounded-lg bg-gray-50 p-6">
-              <h2 className="mb-3 text-lg font-semibold text-gray-950">What happens next?</h2>
-              <ol className="space-y-3 text-sm text-gray-700">
-                <li>1. We check your date and preferred time.</li>
-                <li>2. We recommend the best package for your session.</li>
-                <li>3. Your booking is confirmed once the details are agreed.</li>
-              </ol>
-            </div>
-
-            <div className="rounded-lg bg-black p-6 text-white">
-              <h2 className="mb-3 text-lg font-semibold">Learning note</h2>
-              <p className="text-sm text-gray-200">
-                This first version teaches the basic pattern: form, server route,
-                validation, and customer feedback. The next step is storing or emailing
-                each booking request.
-              </p>
-            </div>
-          </aside>
-        </div>
+         <div>
+        <h1 className="text-3xl font-bold mb-2">Booking Request</h1>
+        <h2 className="text-2xl font-semibold text-gray-900">{selectedPackage.title}</h2>
+        <p className="text-gray-600 mt-2">{selectedPackage.description}</p>
+        <p className="font-bold text-xl mt-4">Price: {selectedPackage.price}</p>
+        <p className="text-gray-600">
+          Duration: {selectedPackage.duration} {selectedPackage.duration === 1 ? "hour" : "hours"}
+        </p>
+      </div> 
+      </div>
+      <div className="max-w-7xl mx-auto px-8">
+        <BookingForm selectedPackage={selectedPackage} />
       </div>
     </section>
   );

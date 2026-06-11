@@ -1,3 +1,4 @@
+// This component renders the booking form and handles form submission to create a new booking request.
 'use client';
 
 import { useState, useTransition } from 'react';
@@ -5,28 +6,7 @@ import { FiCalendar, FiCheckCircle, FiClock, FiMail, FiPhone, FiUser } from 'rea
 
 type BookingStatus = 'idle' | 'sending' | 'success' | 'error';
 
-const serviceOptions = [
-  'Wedding photography',
-  'Engagement photography',
-  'Family photography',
-  'Portrait session',
-  'Other',
-] as const;
-
-const timeOptions = ['Morning', 'Afternoon', 'Evening', 'Flexible'] as const;
-
-type FormData = {
-  name: string;
-  email: string;
-  phone: string;
-  service: string;
-  date: string;
-  time: string;
-  location: string;
-  notes: string;
-};
-
-export default function BookingForm() {
+export default function BookingForm({ selectedPackage }: { selectedPackage: any }) {
   const [status, setStatus] = useState<BookingStatus>('idle');
   const [message, setMessage] = useState('');
   const [isPending, startTransition] = useTransition();
@@ -41,15 +21,16 @@ export default function BookingForm() {
     const form = event.currentTarget;
     const formData = new FormData(form);
 
-    const booking: FormData = {
-      name: formData.get('name') as string,
-      email: formData.get('email') as string,
-      phone: formData.get('phone') as string,
-      service: formData.get('service') as string,
-      date: formData.get('date') as string,
-      time: formData.get('time') as string,
-      location: formData.get('location') as string,
-      notes: (formData.get('notes') as string) || '',
+    const booking = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      service: selectedPackage.title,
+      package: selectedPackage.id,
+      date: formData.get('date'),
+      time: formData.get('time'),
+      location: formData.get('location') || '',
+      notes: formData.get('notes') || '',
     };
 
     startTransition(async () => {
@@ -62,107 +43,66 @@ export default function BookingForm() {
 
         const result = await response.json();
 
-        if (!response.ok) {
-          throw new Error(result.message || 'Failed to send booking request.');
-        }
+        if (!response.ok) throw new Error(result.message || 'Failed to send request');
 
         form.reset();
         setStatus('success');
         setMessage(result.message || 'Booking request sent successfully!');
-      } catch (error) {
+      } catch (error: any) {
         setStatus('error');
-        setMessage(
-          error instanceof Error
-            ? error.message
-            : 'Something went wrong. Please try again.'
-        );
+        setMessage(error.message || 'Something went wrong. Please try again.');
       }
     });
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+    <form onSubmit={handleSubmit} className="mt-6 space-y-6" noValidate>
       <div className="grid gap-6 md:grid-cols-2">
-        {/* Name */}
         <div>
           <label htmlFor="name" className="mb-2 flex items-center gap-2 text-sm font-medium text-gray-800">
-            <FiUser aria-hidden="true" />
-            Name
+            <FiUser aria-hidden="true" /> Name
           </label>
           <input
             id="name"
             name="name"
             type="text"
-            autoComplete="name"
             required
             disabled={isLoading}
-            className="w-full rounded border border-gray-300 px-4 py-3 text-gray-900 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full rounded border border-gray-300 px-4 py-3 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100"
           />
         </div>
 
-        {/* Email */}
         <div>
           <label htmlFor="email" className="mb-2 flex items-center gap-2 text-sm font-medium text-gray-800">
-            <FiMail aria-hidden="true" />
-            Email
+            <FiMail aria-hidden="true" /> Email
           </label>
           <input
             id="email"
             name="email"
             type="email"
-            autoComplete="email"
             required
             disabled={isLoading}
-            className="w-full rounded border border-gray-300 px-4 py-3 text-gray-900 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full rounded border border-gray-300 px-4 py-3 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100"
           />
         </div>
 
-        {/* Phone */}
         <div>
           <label htmlFor="phone" className="mb-2 flex items-center gap-2 text-sm font-medium text-gray-800">
-            <FiPhone aria-hidden="true" />
-            Phone
+            <FiPhone aria-hidden="true" /> Phone
           </label>
           <input
             id="phone"
             name="phone"
             type="tel"
-            autoComplete="tel"
             required
             disabled={isLoading}
-            className="w-full rounded border border-gray-300 px-4 py-3 text-gray-900 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full rounded border border-gray-300 px-4 py-3 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100"
           />
         </div>
 
-        {/* Service */}
-        <div>
-          <label htmlFor="service" className="mb-2 block text-sm font-medium text-gray-800">
-            Service
-          </label>
-          <select
-            id="service"
-            name="service"
-            required
-            disabled={isLoading}
-            defaultValue=""
-            className="w-full rounded border border-gray-300 px-4 py-3 text-gray-900 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100 disabled:cursor-not-allowed"
-          >
-            <option value="" disabled>
-              Select a service
-            </option>
-            {serviceOptions.map((service) => (
-              <option key={service} value={service}>
-                {service}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Preferred Date */}
         <div>
           <label htmlFor="date" className="mb-2 flex items-center gap-2 text-sm font-medium text-gray-800">
-            <FiCalendar aria-hidden="true" />
-            Preferred date
+            <FiCalendar aria-hidden="true" /> Preferred date
           </label>
           <input
             id="date"
@@ -170,84 +110,64 @@ export default function BookingForm() {
             type="date"
             required
             disabled={isLoading}
-            className="w-full rounded border border-gray-300 px-4 py-3 text-gray-900 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100 disabled:cursor-not-allowed"
+            className="w-full rounded border border-gray-300 px-4 py-3 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100"
           />
         </div>
 
-        {/* Preferred Time */}
         <div>
           <label htmlFor="time" className="mb-2 flex items-center gap-2 text-sm font-medium text-gray-800">
-            <FiClock aria-hidden="true" />
-            Preferred time
+            <FiClock aria-hidden="true" /> Preferred time
           </label>
-          <select
+          <input
             id="time"
             name="time"
+            type="time"
             required
             disabled={isLoading}
-            defaultValue=""
-            className="w-full rounded border border-gray-300 px-4 py-3 text-gray-900 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100 disabled:cursor-not-allowed"
-          >
-            <option value="" disabled>
-              Select a time
-            </option>
-            {timeOptions.map((time) => (
-              <option key={time} value={time}>
-                {time}
-              </option>
-            ))}
-          </select>
+            className="w-full rounded border border-gray-300 px-4 py-3 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100"
+          />
         </div>
       </div>
 
-      {/* Location */}
       <div>
         <label htmlFor="location" className="mb-2 block text-sm font-medium text-gray-800">
-          Shoot location
+          Shoot Location
         </label>
         <input
           id="location"
           name="location"
           type="text"
-          required
-          placeholder="Venue, city, or area"
+          placeholder="Venue or area"
           disabled={isLoading}
-          className="w-full rounded border border-gray-300 px-4 py-3 text-gray-900 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100 disabled:cursor-not-allowed"
+          className="w-full rounded border border-gray-300 px-4 py-3 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100"
         />
       </div>
 
-      {/* Notes */}
       <div>
         <label htmlFor="notes" className="mb-2 block text-sm font-medium text-gray-800">
-          Extra details
+          Additional Notes
         </label>
         <textarea
           id="notes"
           name="notes"
-          rows={5}
-          placeholder="Tell us about the session, number of people, package interest, or anything important."
+          rows={4}
+          placeholder="Any special requests..."
           disabled={isLoading}
-          className="w-full rounded border border-gray-300 px-4 py-3 text-gray-900 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100 disabled:cursor-not-allowed"
+          className="w-full rounded border border-gray-300 px-4 py-3 focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 disabled:bg-gray-100"
         />
       </div>
 
-      {/* Submit Button */}
       <button
         type="submit"
         disabled={isLoading}
-        className="inline-flex w-full items-center justify-center gap-2 rounded bg-black px-6 py-3.5 font-medium text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-60 md:w-auto"
+        className="inline-flex w-full items-center justify-center gap-2 rounded bg-black px-8 py-3.5 font-medium text-white hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-60 md:w-auto"
       >
         <FiCheckCircle aria-hidden="true" />
-        {isLoading ? 'Sending request...' : 'Request booking'}
+        {isLoading ? 'Sending...' : 'Request Booking'}
       </button>
 
-      {/* Status Message */}
       {message && (
-        <p
-          className={`text-sm ${status === 'error' ? 'text-red-600' : 'text-green-700'}`}
-          aria-live="polite"
-          role="status"
-        >
+        <p className={`text-sm ${status === 'error' ? 'text-red-600' : 'text-green-700'}`} role="status">
           {message}
         </p>
       )}

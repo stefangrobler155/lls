@@ -4,10 +4,10 @@ import { PackagesSectionProps } from "../lib/types";
 
 export default function PackagesSection({ packages }: PackagesSectionProps) {
   if (!packages || packages.length === 0) return null;
-  console.log("📦 Rendering PackagesSection with packages:", packages); // Debug log
+  // console.log("📦 Rendering PackagesSection with packages:", packages); // Debug log
   return (
     <div className="">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {packages.map((pkg, index) => {
             return (
