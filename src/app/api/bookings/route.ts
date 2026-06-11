@@ -39,11 +39,11 @@ export async function POST(request: NextRequest) {
       message: result.message || 'Booking request sent successfully!',
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('🚨 Full error in /api/bookings:', {
-      name: error.name,
-      message: error.message,
-      stack: error.stack,
+      name: (error as Error).name,
+      message: (error as Error).message,
+      stack: (error as Error).stack,
     });
 
     return NextResponse.json(

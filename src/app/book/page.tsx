@@ -13,7 +13,7 @@ export default async function BookPage({ searchParams }: BookPageProps) {
   const packageId = params.package;
 
   const service = await fetchServiceData(packageId?.split("-")[0] || "");
-  const selectedPackage = service?.packages?.find((pkg: any) => pkg.id === packageId);
+  const selectedPackage = service?.packages?.find((pkg) => pkg.id === packageId);
 
   if (!selectedPackage) {
     notFound();

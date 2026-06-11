@@ -3,10 +3,11 @@
 
 import { useState, useTransition } from 'react';
 import { FiCalendar, FiCheckCircle, FiClock, FiMail, FiPhone, FiUser } from 'react-icons/fi';
+import { Package } from "@/lib/types";
 
 type BookingStatus = 'idle' | 'sending' | 'success' | 'error';
 
-export default function BookingForm({ selectedPackage }: { selectedPackage: any }) {
+export default function BookingForm({ selectedPackage }: { selectedPackage: Package }) {
   const [status, setStatus] = useState<BookingStatus>('idle');
   const [message, setMessage] = useState('');
   const [isPending, startTransition] = useTransition();
@@ -48,9 +49,9 @@ export default function BookingForm({ selectedPackage }: { selectedPackage: any 
         form.reset();
         setStatus('success');
         setMessage(result.message || 'Booking request sent successfully!');
-      } catch (error: any) {
+      } catch (error: unknown) {
         setStatus('error');
-        setMessage(error.message || 'Something went wrong. Please try again.');
+        setMessage((error as Error).message || 'Something went wrong. Please try again.');
       }
     });
   }
