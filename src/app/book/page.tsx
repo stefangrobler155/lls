@@ -29,6 +29,8 @@ export default async function BookPage({ searchParams }: BookPageProps) {
           className="w-50 h-auto object-cover rounded-lg mb-6"
           width={200}
           height={100}
+          style={{ width: "auto", height: "auto" }}
+          loading="eager"
         /> 
         </div>
          <div>
