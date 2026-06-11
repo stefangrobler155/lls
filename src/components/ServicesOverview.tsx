@@ -41,9 +41,9 @@ export default function ServicesOverview({
                       src={service.imageUrl}
                       alt={service.title}
                       className="w-full h-full object-cover"
-                      width={300}
-                      height={300} 
-                      priority
+                      width={200}
+                      height={200} 
+                      loading="eager"
                     />
                   </div>
                 )}

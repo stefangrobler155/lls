@@ -4,7 +4,6 @@ export default function Hero({ title, subtitle, imageUrl, ctaText, ctaUrl }: Her
   if (!title || !subtitle || !imageUrl) {
     return <p className="text-center text-red-500">Missing hero data. Please check your configuration.</p>;
   }
-
   return (
     <section
       className="relative h-[80vh] flex items-center justify-center bg-cover bg-center text-white mb-12"
